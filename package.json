@@ -19,10 +19,8 @@
     "mocha": "^3.5.0"
   },
   "dependencies": {
-    "arrayp": "^1.1.0",
     "hutt": "^1.0.1",
-    "pify": "^3.0.0",
-    "write": "^1.0.3"
+    "pify": "^3.0.0"
   },
   "keywords": [
     "hutt-plugin",
