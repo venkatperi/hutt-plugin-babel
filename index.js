@@ -1,3 +1,4 @@
+/* eslint-disable no-undef,class-methods-use-this */
 // Copyright 2017, Venkat Peri.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -19,6 +20,25 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-module.exports = require( './lib/BabelTaskPlugin' );
+const { transformTaskPluginClass } = require( 'hutt' );
+const pify = require( 'pify' );
+const transformFile = pify( require( 'babel-core' ).transformFile );
 
+const defaultOpts = {
+  babelrc: false,
+};
 
+const BabelTaskPlugin = transformTaskPluginClass( {
+  dependsOn: ['sourceset-js'],
+  name: 'babel',
+  transformFile,
+  defaultOpts,
+  addBuildDep: true,
+  sourceSetName: 'js',
+  outputs: {
+    'code': ( x ) => x,
+    'map': ( x ) => `${x}.map`,
+  }
+} );
+
+module.exports = BabelTaskPlugin;
